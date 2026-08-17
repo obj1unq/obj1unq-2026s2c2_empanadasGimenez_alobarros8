@@ -11,16 +11,32 @@ object galvan {
 }
 
 object baigorria {
+    var totalCobrado = 0
     var empanadasVendidas = 0
     var sueldo = 0
     method vender(_empanadasVendidas) {
-        empanadasVendidas = _empanadasVendidas
-        sueldo = sueldo + (empanadasVendidas * 15)
+        empanadasVendidas = empanadasVendidas + _empanadasVendidas
+        sueldo = empanadasVendidas * 15
     }
 
     method sueldo(){
         return sueldo
     }
+    method sueldo(_sueldo) {
+        sueldo = _sueldo
+    }
+
+    method totalCobrado(_totalCobrado) {
+        totalCobrado = totalCobrado + _totalCobrado
+    }
+    method totalCobrado() {
+        return totalCobrado
+    }
+
+    method empanadasVendidas(_empanadasVendidas) {
+        empanadasVendidas = _empanadasVendidas
+    }
+
 }
 
 object gimenez {
@@ -30,6 +46,10 @@ object gimenez {
   }
   method pagarSueldo(empleado) {
     fondo = fondo - empleado.sueldo()
-    
+    if (empleado == baigorria){
+        empleado.totalCobrado(empleado.sueldo())
+        empleado.empanadasVendidas(0)
+        empleado.sueldo(0)
+    }
   }
 }
