@@ -1,4 +1,5 @@
 //Escribir aqui los objetos
+/*
 object galvan {
   var sueldo = 15000
   var dinero = 0
@@ -47,7 +48,7 @@ object baigorria {
     var sueldo = 0
     method vender(_empanadasVendidas) {
         empanadasVendidas = empanadasVendidas + _empanadasVendidas
-        sueldo = empanadasVendidas * 15
+        sueldo = empanadasVendidas * 15 // no hacer precalculo
     }
 
     method sueldo(){
@@ -78,7 +79,7 @@ object gimenez {
   method pagarSueldo(empleado) {
     fondo = fondo - empleado.sueldo()
     if (empleado == baigorria){
-        empleado.totalCobrado(empleado.sueldo())
+        empleado.totalCobrado(empleado.sueldo())  //hacer polimorfismo
         empleado.empanadasVendidas(0)
         empleado.sueldo(0)
     }else if (empleado == galvan){
@@ -86,4 +87,91 @@ object gimenez {
         empleado.pagarDeudas()
     }
   }
+}
+*/
+
+//Escribir aqui los objetos
+object gimenez {
+    var fondo = 300000
+    var precioEmpanadas = 15
+
+    method precioEmpanadas() {
+        return precioEmpanadas
+    }
+
+    method precioEmpanadas(_precioEmpanadas) {
+        precioEmpanadas = _precioEmpanadas
+    }
+
+    method pagarSueldo(empleado) {
+        fondo = fondo - empleado.sueldo()
+        empleado.cobrarSueldo()
+    }
+
+}
+
+object galvan {
+    var sueldo = 15000
+    var dinero = 0
+    var deuda = 0
+
+    method sueldo() {
+        return sueldo
+    }
+
+    method sueldo(_sueldo) {
+        sueldo = _sueldo
+    }
+    method cobrarSueldo() {
+        if (deuda > dinero){
+          self.pagarDeudas()
+          
+        }else{
+          dinero += sueldo
+        }
+    }
+
+    method gastar(cuanto){
+    if (cuanto > dinero){
+        deuda = deuda + (cuanto - dinero)
+        dinero = 0
+    }else{
+        dinero = dinero - cuanto
+        
+    }
+  }
+  method pagarDeudas() {
+    if (dinero >= deuda){
+        dinero = dinero - deuda
+        deuda = 0
+    }else{
+        deuda = deuda - dinero
+        dinero = 0
+    }
+
+
+} 
+}
+object baigorria {
+    var empanadasVendidas = 0
+    const precioPorEmpanada = 15
+    var totalCobrado = 0
+
+    method sueldo(){
+        return empanadasVendidas * precioPorEmpanada
+    }
+
+    method vender(empanadas) {
+        empanadasVendidas += empanadas
+    }
+
+    method cobrarSueldo() {
+        totalCobrado += self.sueldo() 
+        empanadasVendidas = 0
+    }
+
+    method totalCobrado() {
+        return totalCobrado
+    }
+    
 }
